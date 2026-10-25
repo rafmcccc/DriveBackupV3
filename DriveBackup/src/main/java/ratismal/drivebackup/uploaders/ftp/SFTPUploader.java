@@ -64,7 +64,7 @@ public class SFTPUploader {
      * @param port the port
      * @param username the username
      * @param password the password (leave blank if none)
-     * @param publicKey the path to the public key, relative to the "DriveBackupV2 folder" (leave blank if none)
+     * @param publicKey the path to the public key, relative to the "DriveBackupV3 folder" (leave blank if none)
      * @param passphrase the public key passphrase (leave blank if none)
      * @param localBaseFolder the path to the folder, which all local file paths are relative to.
      * @param remoteBaseFolder the path to the folder, which all remote file paths are relative to.
@@ -83,7 +83,7 @@ public class SFTPUploader {
      * @param port the port
      * @param username the username
      * @param password the password (leave blank if none)
-     * @param publicKey the path to the public key, relative to the "DriveBackupV2 folder" (leave blank if none)
+     * @param publicKey the path to the public key, relative to the "DriveBackupV3 folder" (leave blank if none)
      * @param passphrase the public key passphrase (leave blank if none)
      * @throws Exception
      */
@@ -240,7 +240,7 @@ public class SFTPUploader {
     private TreeMap<Date, RemoteResourceInfo> getZipFiles() throws Exception {
         TreeMap<Date, RemoteResourceInfo> files = new TreeMap<>();
         for (RemoteResourceInfo file : sftpClient.ls()) {
-            if (file.getName().endsWith(".zip")) {
+            if (file.getName().endsWith(".tar.gz")) {
                 files.put(new Date(file.getAttributes().getMtime()), file);
             }
         }

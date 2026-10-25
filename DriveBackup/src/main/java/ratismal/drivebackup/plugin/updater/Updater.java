@@ -36,7 +36,7 @@ public class Updater {
      * Download the latest plugin jar and save it to the plugins' folder.
      */
     private void downloadFile() throws IOException  {
-        File outputPath = new File(updateFolder, "DriveBackupV2.jar.temp");
+        File outputPath = new File(updateFolder, "DriveBackupV3.jar.temp");
         Request request = new Request.Builder().url(UpdateChecker.getLatestDownloadUrl()).addHeader("Accept", "application/octet-stream").build();
         try (Response response = DriveBackup.httpClient.newCall(request).execute()) {
             if (!response.isSuccessful()) {

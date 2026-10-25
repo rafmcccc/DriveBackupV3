@@ -1,4 +1,4 @@
-name: DriveBackupV2 CI
+name: DriveBackupV3 CI
 
 on:
   workflow_dispatch:
@@ -28,5 +28,5 @@ jobs:
         ACCESS_TOKEN: ${{ secrets.CRED_SERVER_PASSWORD }}
     - uses: actions/upload-artifact@v4
       with:
-        name: DriveBackupV2.jar
-        path: DriveBackup/target/DriveBackupV2.jar
+        name: DriveBackupV3.jar
+        path: DriveBackup/target/DriveBackupV3.jar

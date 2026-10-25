@@ -1,4 +1,4 @@
-name: DriveBackupV2 Authenticator
+name: DriveBackupV3 Authenticator
 
 on:
   workflow_dispatch:

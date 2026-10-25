@@ -1,10 +1,10 @@
-name: DriveBackupV2
+name: DriveBackupV3
 version: ${project.version}
-api-version: 1.13
+api-version: 1.26
 description: Uploads backups to Google Drive/OneDrive or by (S)FTP
 main: ratismal.drivebackup.plugin.DriveBackup
 author: MaxTheGinus
 commands:
   drivebackup:
-    description: View all DriveBackupV2 commands
+    description: View all DriveBackupV3 commands
     usage: /drivebackup

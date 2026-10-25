@@ -109,7 +109,7 @@ public class S3Uploader extends Uploader {
             return;
         }
         String destination = ConfigParser.getConfig().backupStorage.remoteDirectory;
-        TreeMap<ZonedDateTime, Item> files = getZipFiles(destination + "/" +type);
+        TreeMap<ZonedDateTime, Item> files = getBackupFiles(destination + "/" +type);
         if (files.size() > fileLimit) {
             logger.info(
                     intl("backup-method-limit-reached"),
@@ -125,7 +125,7 @@ public class S3Uploader extends Uploader {
     }
 
     @NotNull
-    private TreeMap<ZonedDateTime, Item> getZipFiles(String type) throws Exception {
+    private TreeMap<ZonedDateTime, Item> getBackupFiles(String type) throws Exception {
         type = normalizeType(type);
         String prefix = type + "/";
         TreeMap<ZonedDateTime, Item> files = new TreeMap<>();

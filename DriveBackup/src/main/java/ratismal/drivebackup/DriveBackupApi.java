@@ -115,7 +115,7 @@ public class DriveBackupApi {
     }
 
     /**
-     * Reloads the DriveBackupV2 plugin's {@code config.yml}
+     * Reloads the DriveBackupV3 plugin's {@code config.yml}
      * <p>
      * Behaves identically to running {@code /drivebackup reloadconfig}
      */
@@ -126,7 +126,7 @@ public class DriveBackupApi {
     /**
      * Returns the message sent to chat when {@code /drivebackup nextbackup} is run
      * <p>
-     * For more information about the {@code /drivebackup nextbackup} command, see <a href="https://github.com/MaxMaeder/DriveBackupV2/wiki/Commands#drivebackup-nextbackup">this</a>
+     * For more information about the {@code /drivebackup nextbackup} command, see <a href="https://github.com/MaxMaeder/DriveBackupV3/wiki/Commands#drivebackup-nextbackup">this</a>
      * @return the message
      */
     public static String getNextAutoBackup() {

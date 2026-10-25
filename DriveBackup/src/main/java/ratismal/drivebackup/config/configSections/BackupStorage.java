@@ -6,8 +6,6 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import ratismal.drivebackup.util.Logger;
 
-import java.util.zip.Deflater;
-
 import static ratismal.drivebackup.config.Localization.intl;
 
 public class BackupStorage {
@@ -15,7 +13,6 @@ public class BackupStorage {
     public final int threadPriority;
     public final int keepCount;
     public final int localKeepCount;
-    public final int zipCompression;
     public final boolean backupsRequirePlayers;
     public final boolean shouldIgnoreNpcs;
     public final boolean disableSavingDuringBackups;
@@ -27,7 +24,6 @@ public class BackupStorage {
         int threadPriority, 
         int keepCount, 
         int localKeepCount,
-        int zipCompression,
         boolean backupsRequirePlayers,
         boolean shouldIgnoreNpcs,
         boolean disableSavingDuringBackups,
@@ -39,7 +35,6 @@ public class BackupStorage {
         this.threadPriority = threadPriority;
         this.keepCount = keepCount;
         this.localKeepCount = localKeepCount;
-        this.zipCompression = zipCompression;
         this.backupsRequirePlayers = backupsRequirePlayers;
         this.shouldIgnoreNpcs = shouldIgnoreNpcs;
         this.disableSavingDuringBackups = disableSavingDuringBackups;
@@ -74,14 +69,6 @@ public class BackupStorage {
             logger.log(intl("local-keep-count-invalid"));
             localKeepCount = defaultConfig.getInt("local-keep-count");
         }
-        int zipCompression = config.getInt("zip-compression");
-        if (zipCompression < Deflater.BEST_SPEED) {
-            logger.log(intl("zip-compression-too-low"));
-            zipCompression = Deflater.BEST_SPEED;
-        } else if (zipCompression > Deflater.BEST_COMPRESSION) {
-            logger.log(intl("zip-compression-too-high"));
-            zipCompression = Deflater.BEST_COMPRESSION;
-        }
         boolean backupsRequirePlayers = config.getBoolean("backups-require-players");
         boolean shouldIgnoreNpcs = config.getBoolean("should-ignore-npcs");
         boolean disableSavingDuringBackups = config.getBoolean("disable-saving-during-backups");
@@ -91,6 +78,6 @@ public class BackupStorage {
             localDirectory = localDirectory.substring(1);
         }
         String remoteDirectory = config.getString("remote-save-directory");
-        return new BackupStorage(delay, threadPriority, keepCount, localKeepCount, zipCompression, backupsRequirePlayers, shouldIgnoreNpcs, disableSavingDuringBackups, localDirectory, remoteDirectory);
+        return new BackupStorage(delay, threadPriority, keepCount, localKeepCount, backupsRequirePlayers, shouldIgnoreNpcs, disableSavingDuringBackups, localDirectory, remoteDirectory);
     }
 }

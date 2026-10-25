@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -65,10 +65,6 @@ public class ConfigMigrator {
         int backupThreadPriority = config.getInt("backup-thread-priority");
         if (backupThreadPriority < 1) {
             config.set("backup-thread-priority", 1);
-        }
-        int zipCompression = config.getInt("zip-compression");
-        if (zipCompression < 1) {
-            config.set("zip-compression", 1);
         }
         migrate("dir", "local-save-directory");
         migrate("destination", "remote-save-directory");

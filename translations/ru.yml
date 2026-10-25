@@ -1,5 +1,5 @@
 # Check if someone has translated the plugin into your language already!
-# https://github.com/MaxMaeder/DriveBackupV2/tree/master/translations
+# https://github.com/MaxMaeder/DriveBackupV3/tree/master/translations
 #
 # If not, feel free to contribute!
 
@@ -70,7 +70,7 @@ backup-upload-complete: "Загрузка резервных копий заве
 backup-upload-start: "Загрузка резервных копий..."
 backups-interval-scheduled: "Запланировано создание резервных копий раз в <delay> минут"
 backups-scheduled: "Запланировано создание резервных копий в <time>, <days>"
-brief-backup-list: "DriveBackupV2 будет создавать резервные копии этих файлов: <list>"
+brief-backup-list: "DriveBackupV3 будет создавать резервные копии этих файлов: <list>"
 brief-backup-list-empty: "ничего"
 brief-backup-list-external-backups: "некоторые внешние резервные копии"
 brief-backup-list-help: "Чтобы начать копировать другие файлы, прочитайте:
@@ -83,7 +83,7 @@ date-format-invalid: "Недействительный формат времен
 debug-log-created: "URL для отладки: <url>"
 debug-log-creating: "Создание отладочного лога"
 default-google-drive-name: "Мой диск"
-drivebackup-command-header: <gold>|====== <dark_red>DriveBackupV2</dark_red> ======|</gold>
+drivebackup-command-header: <gold>|====== <dark_red>DriveBackupV3</dark_red> ======|</gold>
 drivebackup-docs-command: |-
   <header>
   Нужна помощь? Почитайте следующие полезные ресурсы!
@@ -229,7 +229,7 @@ thread-priority-too-high: "Значение приоритета потока п
 thread-priority-too-low: "Значение приоритета потока ниже минимума, установка минимума"
 unlink-provider-complete: "Сервис <provider> отвязан!"
 unlink-provider-failed: "Не удалось отвязать <provider>, попробуйте снова"
-update-checker-failed: "Произошла ошибка при проверке обновлений DriveBackupV2"
+update-checker-failed: "Произошла ошибка при проверке обновлений DriveBackupV3"
 update-checker-new-release: |-
   Вышла новая версия DriveBackup: <latest-version>. Текущая версия: <current-version>
   Обновить: <gold><click:open_url:https://bit.ly/2VGtF7L>https://bit.ly/2VGtF7L</click></gold> или <gold><click:run_command:/drivebackup update>/drivebackup update</click></gold>
@@ -238,9 +238,9 @@ update-checker-unsupported-release: |-
   Вы используете неподдерживаемую версию!
   Рекомендуемая версия: <latest-version>. Текущая версия: <current-version>
   Если плагин обновился недавно, вы можете проигнорировать это сообщение
-updater-fetch-failed: "Не удалось получить новейшую версию DriveBackupV2"
-updater-no-updates: "Вы используете новейшую версию DriveBackupV2!"
-updater-start: "Попытка загрузки новейшей версии DriveBackupV2..."
+updater-fetch-failed: "Не удалось получить новейшую версию DriveBackupV3"
+updater-no-updates: "Вы используете новейшую версию DriveBackupV3!"
+updater-start: "Попытка загрузки новейшей версии DriveBackupV3..."
 updater-successful: "Плагин успешно обновлён! Перезапустите сервер, чтобы
   применить изменения"
 updater-update-failed: "Не удалось обновить плагин, больше информации в консоли"

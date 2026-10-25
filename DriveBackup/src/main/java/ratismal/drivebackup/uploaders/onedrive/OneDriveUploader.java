@@ -45,7 +45,7 @@ public class OneDriveUploader extends Uploader {
 
     public static final String UPLOADER_NAME = "OneDrive";
 
-    private static final MediaType zipMediaType = MediaType.parse("application/zip; charset=utf-8");
+    private static final MediaType zipMediaType = MediaType.parse("application/gzip; charset=utf-8");
     private static final MediaType jsonMediaType = MediaType.parse("application/json; charset=utf-8");
     private static final MediaType textMediaType = MediaType.parse("text/plain");
 

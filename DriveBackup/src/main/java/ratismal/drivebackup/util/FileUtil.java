@@ -1,6 +1,6 @@
 package ratismal.drivebackup.util;
 
-import org.apache.commons.lang.SystemUtils;
+import org.apache.commons.lang3.SystemUtils;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import ratismal.drivebackup.UploadThread.UploadLogger;
@@ -8,10 +8,10 @@ import ratismal.drivebackup.config.ConfigParser;
 import ratismal.drivebackup.config.ConfigParser.Config;
 import ratismal.drivebackup.exceptions.AbsolutePathException;
 
+import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -24,8 +24,6 @@ import java.util.List;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
 
 import static ratismal.drivebackup.config.Localization.intl;
 
@@ -57,7 +55,7 @@ public class FileUtil {
             return backupList;
         }
         for (File file : files) {
-            if (file.getName().endsWith(".zip")) {
+            if (file.getName().endsWith(".tar.gz")) {
                 backupList.put((file.lastModified() / 1000), file);
             }
         }
@@ -116,7 +114,7 @@ public class FileUtil {
             String lastFolderName = location.substring(lastSeparatorIndex + 1);
             fileName = fileName.replace(NAME_KEYWORD, lastFolderName);
         }
-        zipIt(location, path.getPath() + "/" + fileName, fileList);
+        tarGzIt(location, path.getPath() + "/" + fileName);
     }
 
     /**
@@ -171,67 +169,74 @@ public class FileUtil {
     }
 
     /**
-     * Zips files in the specified folder into the specified file location.
-     * @param inputFolderPath the path of the zip file to create
-     * @param outputFilePath the path of the folder to put it in
-     * @param fileList file to include in the zip
+     * Compresses the specified folder into a {@code .tar.gz} archive using the system {@code tar} CLI.
+     * Entries are stored as {@code <folder>/<file>} to match the previous ZIP behaviour.
+     * @param inputFolderPath the path of the folder to archive
+     * @param outputFilePath the path of the {@code .tar.gz} file to create
+     * @throws Exception if {@code tar} is unavailable or archiving fails
      */
-    private void zipIt(String inputFolderPath, String outputFilePath, BackupFileList fileList) throws Exception {
-        byte[] buffer = new byte[1024];
-        FileOutputStream fileOutputStream;
-        ZipOutputStream zipOutputStream = null;
-        String formattedInputFolderPath = new File(inputFolderPath).getName();
-        if (isBaseFolder(inputFolderPath)) {
-            formattedInputFolderPath = "root";
+    private void tarGzIt(String inputFolderPath, String outputFilePath) throws Exception {
+        File inputFolder = new File(inputFolderPath);
+        boolean baseFolder = isBaseFolder(inputFolderPath);
+
+        Path parent = inputFolder.toPath().getParent();
+        String tarParent = (parent == null) ? "." : parent.toString();
+        String tarSource = baseFolder ? "." : inputFolder.getName();
+        if (tarSource.isEmpty()) {
+            tarSource = ".";
         }
+
+        // Fail fast if tar is not installed or not executable.
+        ProcessBuilder availability = new ProcessBuilder("tar", "--version");
+        availability.redirectErrorStream(true);
+        Process availabilityProcess;
         try {
-            fileOutputStream = new FileOutputStream(outputFilePath);
-            zipOutputStream = new ZipOutputStream(fileOutputStream);
-            zipOutputStream.setLevel(ConfigParser.getConfig().backupStorage.zipCompression);
-            for (String file : fileList.getList()) {
-                ZipEntry entry = new ZipEntry(formattedInputFolderPath + "/" + file);
-                String filePath = inputFolderPath + "/" + file;
-                BasicFileAttributes fileAttributes = null;
-                try {
-                    fileAttributes = Files.readAttributes(Paths.get(filePath), BasicFileAttributes.class);
-                } catch(Exception e) { }
-                if (fileAttributes == null) {
-                    logger.info(
-                        intl("local-backup-failed-attributes"),
-                        "file-path", filePath);
-                } else {
-                    entry.setCreationTime(fileAttributes.creationTime());
-                    entry.setLastAccessTime(fileAttributes.lastAccessTime());
-                    entry.setLastModifiedTime(fileAttributes.lastModifiedTime());
-                    entry.setSize(fileAttributes.size());
-                }
-                zipOutputStream.putNextEntry(entry);
-                try (FileInputStream fileInputStream = new FileInputStream(filePath)){
-                    int len;
-                    while ((len = fileInputStream.read(buffer)) > 0) {
-                        zipOutputStream.write(buffer, 0, len);
-                    }
-                } catch (Exception e) {
-                    // Don't send warning for .lock files, they will always be locked.
-                    if (!filePath.endsWith(".lock")) {
-                        logger.info(
-                            intl("local-backup-failed-to-include"),
-                            "file-path", filePath);
-                    }
-                }
-                zipOutputStream.closeEntry();
+            availabilityProcess = availability.start();
+        } catch (IOException exception) {
+            throw new Exception("tar is not installed or not executable; .tar.gz backups require tar", exception);
+        }
+        availabilityProcess.waitFor();
+        if (availabilityProcess.exitValue() != 0) {
+            throw new Exception("tar is not installed or not executable; .tar.gz backups require tar");
+        }
+
+        List<String> command = new ArrayList<>();
+        command.add("tar");
+        if (baseFolder) {
+            command.add("--transform=s,^\\./,root/,");
+        }
+        command.add("-czf");
+        command.add(outputFilePath);
+        command.add("-C");
+        command.add(tarParent);
+        command.add(tarSource);
+
+        ProcessBuilder builder = new ProcessBuilder(command);
+        builder.redirectErrorStream(true);
+        Process process;
+        try {
+            process = builder.start();
+        } catch (IOException exception) {
+            throw new Exception("Failed to execute tar for " + outputFilePath, exception);
+        }
+
+        StringBuilder output = new StringBuilder();
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                output.append(line).append('\n');
             }
-            zipOutputStream.close();
-        } catch (Exception exception) {
-            if (zipOutputStream != null) {
-                zipOutputStream.close();
-            }
-            throw exception; 
+        }
+
+        int exitCode = process.waitFor();
+        if (exitCode != 0) {
+            throw new Exception("tar failed with exit code " + exitCode + " while creating " + outputFilePath
+                    + (output.length() > 0 ? ": " + output : ""));
         }
     }
 
     /**
-     * A list of files to put in a zip file
+     * A list of files to put in a tar.gz file
      * Mutable.
      */
     private static class BackupFileList {

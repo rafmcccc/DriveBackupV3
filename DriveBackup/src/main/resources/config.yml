@@ -1,17 +1,16 @@
 #################################################
-# DriveBackupV2   -   by Max Maeder (MaxTheGinus)
+# DriveBackupV3   -   by Max Maeder (MaxTheGinus)
 #################################################
 
 # DOCUMENTATION HAS MOVED
-# Now available online at: https://github.com/MaxMaeder/DriveBackupV2/wiki
+# Now available online at: https://github.com/MaxMaeder/DriveBackupV3/wiki
 
-version: 2
+version: 3
 
 delay: 60
 backup-thread-priority: 1
 keep-count: 20
 local-keep-count: 0
-zip-compression: 1
 backups-require-players: true
 should-ignore-npcs: true
 disable-saving-during-backups: true
@@ -21,10 +20,10 @@ backup-schedule-list:
 
 backup-list:
 - glob: "world*"
-  format: "Backup-%NAME-%FORMAT.zip"
+  format: "Backup-%NAME-%FORMAT.tar.gz"
   create: true
 - path: "plugins"
-  format: "Backup-plugins-%FORMAT.zip"
+  format: "Backup-plugins-%FORMAT.tar.gz"
   create: true
 
 external-backup-list:
@@ -70,7 +69,7 @@ ftp:
 
 messages:
   send-in-chat: true
-  prefix: "&6[&4DriveBackupV2&6] "
+  prefix: "&6[&4DriveBackupV3&6] "
   default-color: "&3"
 
 advanced:

@@ -126,7 +126,7 @@ public class GoogleDriveUploader extends Uploader {
             setTimeout(new Credential(
                 BearerToken.authorizationHeaderAccessMethod())
                 .setAccessToken(parsedResponse.getString("access_token"))))
-            .setApplicationName("DriveBackupV2")
+            .setApplicationName("DriveBackupV3")
             .build();
     }
 
@@ -162,7 +162,7 @@ public class GoogleDriveUploader extends Uploader {
             File folder = getRemoteDir(null, sharedDriveId);
             File body = new File();
             body.setTitle(testFile.getName());
-            body.setDescription("DriveBackupV2 test file");
+            body.setDescription("DriveBackupV3 test file");
             FileContent testContent = new FileContent("plain/txt", testFile);
             ParentReference fileParent = new ParentReference();
             fileParent.setId(folder.getId());
@@ -220,12 +220,12 @@ public class GoogleDriveUploader extends Uploader {
             File folder = getRemoteDir(type, sharedDriveId);
             File fileMetadata = new File();
             fileMetadata.setTitle(file.getName());
-            fileMetadata.setDescription("Uploaded by the DriveBackupV2 Minecraft plugin");
-            fileMetadata.setMimeType("application/zip");
+            fileMetadata.setDescription("Uploaded by the DriveBackupV3 Minecraft plugin");
+            fileMetadata.setMimeType("application/gzip");
             ParentReference fileParent = new ParentReference();
             fileParent.setId(folder.getId());
             fileMetadata.setParents(Collections.singletonList(fileParent));
-            FileContent fileContent = new FileContent("application/zip", file);
+            FileContent fileContent = new FileContent("application/gzip", file);
             service.files().insert(fileMetadata, fileContent).setSupportsAllDrives(true).execute();
             try {
                 pruneBackups(folder);

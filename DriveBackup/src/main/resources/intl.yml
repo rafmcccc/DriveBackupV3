@@ -1,5 +1,5 @@
 # Check if someone has translated the plugin into your language already!
-# https://github.com/MaxMaeder/DriveBackupV2/tree/master/translations
+# https://github.com/MaxMaeder/DriveBackupV3/tree/master/translations
 #
 # If not, feel free to contribute!
 
@@ -72,7 +72,7 @@ backup-upload-complete: "Backup(s) uploaded"
 backup-upload-start: "Uploading backup(s)..."
 backups-interval-scheduled: "Scheduling a backup to run every <delay> minutes"
 backups-scheduled: "Scheduling a backup to run at <time> every <days>"
-brief-backup-list: "DriveBackupV2 will currently back up <list>"
+brief-backup-list: "DriveBackupV3 will currently back up <list>"
 brief-backup-list-empty: "nothing"
 brief-backup-list-external-backups: "some external backups"
 brief-backup-list-help: "Want to back up something else? See
@@ -86,7 +86,7 @@ date-format-invalid: "Date format timezone not valid, using UTC"
 debug-log-created: "Debug URL: <url>"
 debug-log-creating: "Generating Debug Log"
 default-google-drive-name: "My Drive"
-drivebackup-command-header: <gold>|====== <dark_red>DriveBackupV2</dark_red> ======|</gold>
+drivebackup-command-header: <gold>|====== <dark_red>DriveBackupV3</dark_red> ======|</gold>
 drivebackup-docs-command: |-
   <header>
   Need help? Check out these helpful resources!
@@ -234,7 +234,7 @@ thread-priority-too-high: "Inputted thread priority more than maximum, using max
 thread-priority-too-low: "Inputted thread priority less than minimum, using minimum"
 unlink-provider-complete: "Your <provider> account is unlinked!"
 unlink-provider-failed: "Failed to unlink your <provider> account, please try again"
-update-checker-failed: "There was an issue attempting to check for the latest DriveBackupV2 release"
+update-checker-failed: "There was an issue attempting to check for the latest DriveBackupV3 release"
 update-checker-new-release: |-
   DriveBackup version <latest-version> has been released, You are currently running version <current-version>
   Update at: <gold><click:open_url:https://bit.ly/2VGtF7L>https://bit.ly/2VGtF7L</click></gold>" or with <gold><click:run_command:/drivebackup update>/drivebackup update</click></gold>
@@ -243,13 +243,11 @@ update-checker-unsupported-release: |-
   You are running an unsupported release!
   The recommended release is <latest-version>, and you are running <current-version>
   If the plugin has just recently updated, please ignore this message
-updater-fetch-failed: "Unable to fetch latest version of DriveBackupV2"
-updater-no-updates: "You are using the latest version of DriveBackupV2!"
-updater-start: "Attempting to download the latest version of DriveBackupV2"
+updater-fetch-failed: "Unable to fetch latest version of DriveBackupV3"
+updater-no-updates: "You are using the latest version of DriveBackupV3!"
+updater-start: "Attempting to download the latest version of DriveBackupV3"
 updater-successful: "Successfully updated plugin! Please restart your server in
   order for changes to take effect"
 updater-update-failed: "Plugin update failed, see console for more info"
 upload-error-check: "Checking for upload errors..."
 upload-no-errors: "No upload errors found"
-zip-compression-too-high: "Inputted zip compression more than maximum, using maximum"
-zip-compression-too-low: "Inputted zip compression less than minimum, using minimum"

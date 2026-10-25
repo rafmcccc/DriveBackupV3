@@ -1,0 +1,62 @@
+plugins {
+    id 'java'
+    id 'com.gradleup.shadow' version '9.4.0'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+group = 'ratismal'
+version = '1.8.1'
+
+repositories {
+    mavenCentral()
+    maven { url 'https://hub.spigotmc.org/nexus/content/groups/public/' }
+    maven { url 'https://repo.codemc.org/repository/maven-public' }
+    maven { url 'https://repo.papermc.io/repository/maven-public/' }
+}
+
+dependencies {
+    compileOnly 'io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT'
+    implementation 'com.google.apis:google-api-services-drive:v2-rev393-1.25.0'
+    implementation 'org.bstats:bstats-bukkit:3.1.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.12.0'
+    implementation 'org.json:json:20240303'
+    implementation 'commons-net:commons-net:3.11.1'
+    implementation 'org.apache.commons:commons-lang3:3.18.0'
+    implementation 'com.hierynomus:sshj:0.39.0'
+    implementation 'com.github.lookfirst:sardine:5.12'
+    implementation 'net.kyori:adventure-platform-bukkit:4.4.1'
+    implementation 'net.kyori:adventure-text-minimessage:4.26.1'
+    implementation 'net.kyori:adventure-text-serializer-legacy:4.26.1'
+    implementation 'io.minio:minio:8.6.0'
+}
+
+// Maven pom filtered ${project.version} in resources (plugin.yml, etc).
+processResources {
+    filter { s -> s.replaceAll(/\$\{project\.version\}/, project.version) }
+}
+
+// Faithful port of the Maven Shade config: relocate these packages into the
+// plugin's lib namespace and strip META-INF from merged dependencies.
+shadowJar {
+    archiveBaseName.set('DriveBackupV3')
+    archiveClassifier.set('')
+    archiveVersion.set('')
+
+    relocate 'org.bstats',         'ratismal.drivebackup.DriveBackup.lib'
+    relocate 'com.google.apis',    'ratismal.drivebackup.DriveBackup.lib'
+    relocate 'okhttp3',            'ratismal.drivebackup.DriveBackup.lib'
+    relocate 'okio',               'ratismal.drivebackup.DriveBackup.lib'
+    relocate 'kotlin',             'ratismal.drivebackup.DriveBackup.lib'
+    relocate 'org.json',           'ratismal.drivebackup.DriveBackup.lib'
+    relocate 'org.apache.commons', 'ratismal.drivebackup.DriveBackup.lib'
+    relocate 'commons-net',        'ratismal.drivebackup.DriveBackup.lib'
+    relocate 'com.hierynomus',     'ratismal.drivebackup.DriveBackup.lib'
+    relocate 'com.github.lookfirst','ratismal.drivebackup.DriveBackup.lib'
+    relocate 'net.kyori',          'ratismal.drivebackup.DriveBackup.lib'
+    relocate 'com.fasterxml',      'ratismal.drivebackup.DriveBackup.lib'
+
+}

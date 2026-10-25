@@ -89,7 +89,7 @@ public class UpdateChecker {
     }
 
     public Version getLatest() throws Exception {
-        final String LATEST_URL = "https://api.github.com/repos/MaxMaeder/DriveBackupV2/releases/latest";
+        final String LATEST_URL = "https://api.github.com/repos/MaxMaeder/DriveBackupV3/releases/latest";
         Request request = new Request.Builder().url(LATEST_URL).build();
         JSONObject pluginVersions;
         try (Response response = DriveBackup.httpClient.newCall(request).execute()) {

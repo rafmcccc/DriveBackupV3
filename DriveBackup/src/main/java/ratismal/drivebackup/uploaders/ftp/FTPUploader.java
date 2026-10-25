@@ -85,7 +85,7 @@ public class FTPUploader extends Uploader {
      * @param password the password (leave blank if none)
      * @param ftps whether FTP using SSL
      * @param sftp whether FTP using SSH
-     * @param publicKey the path to the SSH public key, relative to the "DriveBackupV2 folder" (leave blank if none)
+     * @param publicKey the path to the SSH public key, relative to the "DriveBackupV3 folder" (leave blank if none)
      * @param passphrase the SSH public key passphrase (leave blank if none)
      * @param localBaseFolder the path to the folder, which all local file paths are relative to.
      * @param remoteBaseFolder the path to the folder, which all remote file paths are relative to.
@@ -308,7 +308,7 @@ public class FTPUploader extends Uploader {
     private TreeMap<Date, FTPFile> getZipFiles() throws Exception {
         TreeMap<Date, FTPFile> files = new TreeMap<>();
         for (FTPFile file : ftpClient.mlistDir()) {
-            if (file.getName().endsWith(".zip")) {
+            if (file.getName().endsWith(".tar.gz")) {
                 files.put(file.getTimestamp().getTime(), file);
             }
         }

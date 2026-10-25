@@ -1,4 +1,4 @@
-# DriveBackupV2
+# DriveBackupV3
 
 **Need help? Talk to our team on [Discord](https://discord.gg/VdCAUtm)!**
 
@@ -9,7 +9,7 @@ Maybe your hard drive died.
 Maybe your server hosting provider terminated the server without warning.  
 Maybe you just accidentally deleted it.  
 
-DriveBackupV2 is a plugin that aims to provide an extra layer of security to your data by backing it up remotely.
+DriveBackupV3 is a plugin that aims to provide an extra layer of security to your data by backing it up remotely.
 
 ## Features
 - Creates and/or uploads backups to Google Drive, OneDrive, Dropbox,
@@ -34,7 +34,7 @@ and/or a remote storage server with (S)FTP or S3 compatible api.
 
 ## Where can I download it?
 
-- [GitHub Releases](https://github.com/MaxMaeder/DriveBackupV2/releases)
+- [GitHub Releases](https://github.com/MaxMaeder/DriveBackupV3/releases)
 - [Bukkit](https://dev.bukkit.org/projects/drivebackupv2)
 - [Spigot](https://www.spigotmc.org/resources/drivebackupv2.79519/)
 - [Modrinth](https://modrinth.com/plugin/drivebackupv2)
@@ -64,7 +64,7 @@ Once you have completed the above instructions,
 backups will run automatically every hour by default.
 
 ## Advanced Setup
-Learn how to set up and use more advanced features in the [wiki](https://github.com/MaxMaeder/DriveBackupV2/wiki).
+Learn how to set up and use more advanced features in the [wiki](https://github.com/MaxMaeder/DriveBackupV3/wiki).
 
 ## Privacy Policy
 Since we need to access your Google Drive
