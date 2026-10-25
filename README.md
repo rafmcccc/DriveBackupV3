@@ -1,6 +1,7 @@
 # DriveBackupV3
 
-**Need help? Talk to our team on [Discord](https://discord.gg/VdCAUtm)!**
+## Credits
+DriveBackupV3 is a fork of [DriveBackupV2](https://github.com/MaxMaeder/DriveBackupV2) by Max Maeder (MaxTheGinus).
 
 ## What is this?
 Have you ever lost your Minecraft world before?
